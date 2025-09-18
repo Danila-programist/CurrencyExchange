@@ -23,6 +23,7 @@
 - Asyncio
 - Uvicorn
 - RBAC
+- logging
 
 
 ## Функциональность
