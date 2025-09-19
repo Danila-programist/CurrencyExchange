@@ -10,3 +10,4 @@ def create_token(data: Optional[Dict[str, str]]) -> str:
     payload.update(data)
     payload['exp'] = datetime.datetime.now() + datetime.timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     return jwt.encode(payload=payload, key=settings.SECRET, algorithm=settings.ALGORYTHM)
+

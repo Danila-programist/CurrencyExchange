@@ -12,7 +12,7 @@ from app.core import create_token
 
 router = APIRouter()
 
-@router.post('/register')
+@router.post('/register', summary="Регистрация нового пользователя")
 async def register(user: UserRequest, db: AsyncSession = Depends(get_db)):
     user_db: Optional[UserDatabase] = await get_user(db, user.username)
     
@@ -22,7 +22,7 @@ async def register(user: UserRequest, db: AsyncSession = Depends(get_db)):
     else:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Неправильный пароль или никнейм')
 
-@router.post('/login')
+@router.post('/login', summary="Авторизация пользователя")
 async def login(user: UserRequest, response: Response, db: AsyncSession = Depends(get_db)):
     user_db: Optional[UserDatabase] = await get_user(db, user.username)
 
