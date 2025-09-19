@@ -6,12 +6,6 @@ export
 init_env:
 	@poetry shell
 
-run:
-	@python main.py
-
-kill_proccess:
-	@sudo lsof -ti :8000 | xargs -r sudo kill -9
-	
 env_file:
 	@$(eval SHELL:=/bin/bash)
 	@if [ ! -f .env ]; then \
@@ -20,6 +14,12 @@ env_file:
 		cp .env.example .env; \
 	fi
 
+run:
+	@python main.py
+
+kill_proccess:
+	@sudo lsof -ti :8000 | xargs -r sudo kill -9
+	
 up:  
 	docker-compose up -d ${DB}
 
