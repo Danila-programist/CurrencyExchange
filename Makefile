@@ -1,11 +1,11 @@
 init:
-	poetry shell
+	@poetry shell
 
 run:
-	python main.py
+	@python main.py
 
 kill_proccess:
-	sudo lsof -ti :8000 | xargs -r sudo kill -9
+	@sudo lsof -ti :8000 | xargs -r sudo kill -9
 	
 env:
 	@$(eval SHELL:=/bin/bash)
