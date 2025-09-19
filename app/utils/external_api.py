@@ -37,6 +37,39 @@ async def get_api_all_currencies():
         
 
 async def get_api_latest(from_currency: str):
+    """
+    Получить список всех доступных конвертирующих валют от базовой с их
+    значением кодов и относительной стоимостью от базовой, а также время последненего изменения.
+
+    Эта функция делает асинхронный HTTPS-запрос к CurrencyAPI
+    (endpoint /currencies) и возвращает следующий результат.
+
+    Пример результата:
+    {
+    "meta": {
+        "last_updated_at": "2023-06-23T10:15:59Z"
+    },
+    "data": {
+        "AED": {
+            "code": "AED",
+            "value": 3.67306
+        },
+        "AFN": {
+            "code": "AFN",
+            "value": 91.80254
+        },
+        "ALL": {
+            "code": "ALL",
+            "value": 108.22904
+        },
+        "AMD": {
+            "code": "AMD",
+            "value": 480.41659
+        },
+        "...": "150+ more currencies"
+    }
+}
+    """
     async with aiohttp.ClientSession() as session:
         params = {"apikey": settings.CURRENCY_API_KEY, "base": from_currency}
         async with session.get(f"{settings.BASE_URL}/latest", params=params) as response:
