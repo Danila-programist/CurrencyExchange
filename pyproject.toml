@@ -15,6 +15,7 @@ pydantic = "^2.11.9"
 alembic = "^1.16.5"
 sqlalchemy = "^2.0.43"
 asyncpg = "^0.30.0"
+passlib = "^1.7.4"
 
 
 [build-system]
