@@ -24,6 +24,7 @@
 - Uvicorn
 - RBAC
 - logging
+- aiohttp
 
 
 ## Функциональность
