@@ -30,6 +30,6 @@ logs:
 	docker-compose logs -f
 
 psql: 
-	docker exec -it $(DB_CONTAINER) psql -d $(DB_NAME) -U $(DB_USER)
+	docker exec -it $(DB_CONTAINER_NAME) psql -d $(DB_NAME) -U $(DB_USER)
 
 
