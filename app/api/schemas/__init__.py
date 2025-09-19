@@ -1,5 +1,5 @@
 from .currency import Currency, CurrencyConversion
-from .user import UserRequest
+from .user import UserRequest, UserDatabase
 
 
-__all__ = ['Currency', 'CurrencyConversion', 'UserRequest']
+__all__ = ['Currency', 'CurrencyConversion', 'UserRequest', "UserDatabase"]
