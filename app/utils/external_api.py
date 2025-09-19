@@ -34,3 +34,11 @@ async def get_api_all_currencies():
             response.raise_for_status()
             data = await response.json()
             return data['data']
+        
+
+async def get_api_latest(from_currency: str):
+    async with aiohttp.ClientSession() as session:
+        params = {"apikey": settings.CURRENCY_API_KEY, "base": from_currency}
+        async with session.get(f"{settings.BASE_URL}/latest", params=params) as response:
+            response.raise_for_status()
+            return await response.json()

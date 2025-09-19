@@ -1,8 +1,8 @@
-from typing import Dict
+from typing import Dict, Optional
 
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, Query
 
-from app.utils import get_api_all_currencies
+from app.utils import get_api_all_currencies, get_api_latest
 from app.api.schemas import Currency
 
 
@@ -14,3 +14,20 @@ async def all_currencies():
         return await get_api_all_currencies()
     except Exception as exc:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(exc))
+    
+@router.get("/convert", summary="Конвертация валют")
+async def convert_currency(
+    from_currency: str = Query("USD", alias="from"),
+    to_currency: Optional[str] = Query(None, alias="to"),
+    amount: float = 1
+):
+    try:
+        data = await get_api_latest(from_currency)
+        rates: Dict[str, float] = data.get("data", {})
+
+        if not rates:
+            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Ошибка получения курсов валют")
+
+    except Exception as exc:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(exc))
+    
