@@ -20,6 +20,9 @@ class Settings(BaseSettings):
     def ASYNC_DATABASE_DSN(self) -> PostgresDsn:
         return f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
 
+    # Hashing
+
+    PWD_ALGORYTHM: str
 
     model_config = SettingsConfigDict(env_file=['.env.example', '.env'], env_file_encoding='utf-8')
 
