@@ -22,9 +22,9 @@
 - Pydantic-settings
 - Asyncio
 - Uvicorn
-- RBAC
+- rbac
 - logging
-- aiohttp
+- Aiohttp
 
 
 ## Функциональность
