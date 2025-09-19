@@ -2,7 +2,7 @@ init:
 	poetry shell
 
 run:
-	python3 main.python3
+	python main.py
 
 kill_proccess:
 	sudo lsof -ti :8000 | xargs -r sudo kill -9
