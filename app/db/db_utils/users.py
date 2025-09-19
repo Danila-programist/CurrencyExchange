@@ -5,6 +5,7 @@ from sqlalchemy import select
 
 from app.db.models import Users
 from app.api.schemas import UserDatabase
+from app.utils import hash_password
 
 async def get_user(db: AsyncSession, username: str) -> Optional[UserDatabase]:
     stmt = select(Users).where(Users.username == username)
@@ -14,7 +15,7 @@ async def get_user(db: AsyncSession, username: str) -> Optional[UserDatabase]:
 async def add_new_user(db: AsyncSession, username: str, password: str, role: str = "user") -> None:
     new_user: Users = Users(
         username=username,
-        hashed_password=password,  
+        hashed_password=hash_password(password),  
         role=role
     )
 
