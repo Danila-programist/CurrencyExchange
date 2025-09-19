@@ -1,4 +1,4 @@
-from .currency import Currency
+from .currency import Currency, CurrencyConversion
 
 
-__all__ = ['Currency']
+__all__ = ['Currency', 'CurrencyConversion']
