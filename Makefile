@@ -32,4 +32,11 @@ logs:
 psql: 
 	docker exec -it $(DB_CONTAINER_NAME) psql -d $(DB_NAME) -U $(DB_USER)
 
+revision:
+	alembic revision --autogenerate
+
+migration:
+	alembic upgrade head
+
+
 
