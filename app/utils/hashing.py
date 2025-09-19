@@ -2,7 +2,7 @@ from passlib.context import CryptContext
 
 from app.core import settings
 
-pwd_context = CryptContext(settings.PWD_ALGORYTHM)
+pwd_context = CryptContext(schemes=[settings.PWD_ALGORYTHM], deprecated="auto")
 
 def hash_password(password: str) -> str:
     return pwd_context.hash(password)
