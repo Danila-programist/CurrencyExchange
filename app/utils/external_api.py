@@ -31,10 +31,14 @@ async def get_api_all_currencies():
     }
     """
     async with aiohttp.ClientSession() as session:
+        logger.info('Подключение aiohttp сессии')
         async with session.get(f"{settings.BASE_URL}/currencies", params={"apikey": settings.CURRENCY_API_KEY}) as response:
+            logger.info('Получение get-запроса к внешнему API')
             response.raise_for_status()
             data = await response.json()
             return data['data']
+        logger.warning('Не получилось подключиться к внешнему API')
+    logger.warning('Не получили подключение к сессии')
         
 
 async def get_api_latest(from_currency: str):
