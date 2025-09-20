@@ -9,7 +9,7 @@ from app.core import settings
 from app.api.schemas import UserDatabase
 from app.db.db_utils import get_user, get_role
 from app.db import get_db
-from app.utils import logger
+from app.utils.logger import logger
 
 def create_token(data: Optional[Dict[str, str]]) -> str:
     logger.info('Создание нового токена')

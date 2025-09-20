@@ -1,7 +1,7 @@
 import aiohttp
 
 from app.core import settings
-from app.utils import logger
+from app.utils.logger import logger
 
 async def get_api_all_currencies():
     """

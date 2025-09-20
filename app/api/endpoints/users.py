@@ -6,7 +6,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.api.schemas import UserRequest, UserDatabase
 from app.db.db_utils import get_user, add_new_user
 from app.db import get_db
-from app.utils import is_verify_password, logger
+from app.utils import is_verify_password
+from app.utils.logger import logger
 from app.core import create_token
 
 

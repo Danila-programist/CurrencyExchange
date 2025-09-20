@@ -1,7 +1,7 @@
 from passlib.context import CryptContext
 
 from app.core import settings
-from app.utils import logger
+from app.utils.logger import logger
 
 pwd_context = CryptContext(schemes=[settings.PWD_ALGORYTHM], deprecated="auto")
 

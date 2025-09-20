@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
 from app.core import settings
-from app.utils import logger
+from app.utils.logger import logger
 
 engine = create_async_engine(settings.ASYNC_DATABASE_DSN)
 

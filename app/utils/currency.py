@@ -3,7 +3,7 @@ from typing import Dict, List, Optional
 from fastapi import HTTPException, status
 
 from app.api.schemas import CurrencyConversion
-from app.utils import logger
+from app.utils.logger import logger
 
 def convert_rates(
     from_currency: str,

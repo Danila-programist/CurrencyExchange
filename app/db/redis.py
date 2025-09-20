@@ -4,7 +4,7 @@ import redis.asyncio as redis
 from fastapi_limiter import FastAPILimiter
 
 from app.core import settings
-from app.utils import logger
+from app.utils.logger import logger
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):

@@ -5,7 +5,7 @@ from sqlalchemy import select
 
 from app.db.models import Users
 from app.api.schemas import UserDatabase
-from app.utils import logger
+from app.utils.logger import logger
 
 
 async def get_user(db: AsyncSession, username: str) -> Optional[UserDatabase]:
