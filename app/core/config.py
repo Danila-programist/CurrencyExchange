@@ -26,6 +26,9 @@ class Settings(BaseSettings):
     SECRET: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int
 
+    # Redis
+    REDIS_CONTAINER_NAME: str
+
 
     model_config = SettingsConfigDict(env_file=['.env.example', '.env'], env_file_encoding='utf-8')
 
