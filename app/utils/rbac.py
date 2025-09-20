@@ -1,5 +1,6 @@
-from fastapi import Depends, HTTPException, status
 from typing import List
+
+from fastapi import Depends, HTTPException, status
 
 from app.core.security import get_role_from_token 
 
