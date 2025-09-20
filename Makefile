@@ -21,7 +21,7 @@ kill_proccess:
 	sudo lsof -ti :8000 | xargs -r sudo kill -9
 	
 up:  
-	docker-compose up -d ${DB}
+	docker-compose up -d  
 
 down: 
 	docker-compose down
@@ -31,6 +31,9 @@ logs:
 
 psql: 
 	docker exec -it $(DB_CONTAINER_NAME) psql -d $(DB_NAME) -U $(DB_USER)
+
+redis-cli:
+	docker exec -it ${REDIS_CONTAINER_NAME} redis-cli 
 
 revision:
 	alembic revision --autogenerate
