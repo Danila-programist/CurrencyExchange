@@ -4,13 +4,15 @@ from fastapi import APIRouter, HTTPException, status, Query, Depends
 
 from app.utils import get_api_all_currencies, get_api_latest, convert_rates, PermissionChecker, LimitChecker
 from app.api.schemas import Currency, CurrencyConversion
-from app.core import get_role_from_token
+
 
 
 
 router = APIRouter()
 
 role_limits = {"admin": 10, "user": 5, "guest": 1}
+
+
 @router.get(
     "/all",
     response_model=Dict[str, Currency],
