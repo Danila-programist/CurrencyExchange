@@ -2,16 +2,22 @@ from typing import Dict, Optional, List
 
 from fastapi import APIRouter, HTTPException, status, Query, Depends
 
-from app.utils import get_api_all_currencies, get_api_latest, convert_rates, PermissionChecker
+from app.utils import get_api_all_currencies, get_api_latest, convert_rates, PermissionChecker, LimitChecker
 from app.api.schemas import Currency, CurrencyConversion
 from app.core import get_role_from_token
 
 
+
 router = APIRouter()
+
+role_limits = {"admin": 10, "user": 5, "guest": 1}
 
 @router.get("/all", response_model=Dict[str, Currency], 
             summary="Получить список всех валют с дополнительной информацией",
-            dependencies=[Depends(PermissionChecker(["guest", "user", "admin"]))])
+            dependencies=[
+                Depends(PermissionChecker(["guest", "user", "admin"])),
+                Depends(LimitChecker(role_limits))]
+            )
 async def all_currencies(user_role = Depends(get_role_from_token)):
     try:
         return await get_api_all_currencies()
@@ -20,7 +26,10 @@ async def all_currencies(user_role = Depends(get_role_from_token)):
     
 @router.get("/convert", response_model=List[CurrencyConversion], 
             summary="Конвертация валют", 
-            dependencies=[Depends(PermissionChecker(["user", "admin"]))] )
+            dependencies=[
+                Depends(PermissionChecker(["guest", "user", "admin"])),
+                Depends(LimitChecker(role_limits))]
+            )
 async def convert_currency(
     user_role = Depends(get_role_from_token),
     from_currency: str = Query("USD", alias="from"),
