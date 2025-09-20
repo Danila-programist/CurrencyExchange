@@ -9,8 +9,6 @@ from app.core import get_role_from_token
 
 router = APIRouter()
 
-
-
 @router.get("/all", response_model=Dict[str, Currency], 
             summary="Получить список всех валют с дополнительной информацией",
             dependencies=[Depends(PermissionChecker(["guest", "user", "admin"]))])
@@ -20,7 +18,6 @@ async def all_currencies(user_role = Depends(get_role_from_token)):
     except Exception as exc:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(exc))
     
-
 @router.get("/convert", response_model=List[CurrencyConversion], 
             summary="Конвертация валют", 
             dependencies=[Depends(PermissionChecker(["user", "admin"]))] )

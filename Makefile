@@ -1,24 +1,24 @@
-.PHONY: up down logs psql
+.PHONY: up down logs psql run kill_proccess init_env env_file
 
 include .env
 export
 
 init_env:
-	@poetry shell
+	poetry shell
 
 env_file:
-	@$(eval SHELL:=/bin/bash)
-	@if [ ! -f .env ]; then \
+	$(eval SHELL:=/bin/bash)
+	if [ ! -f .env ]; then \
 		cp .env.example .env; \
 	elif ! cmp -s .env .env.example; then \
 		cp .env.example .env; \
 	fi
 
 run:
-	@python main.py
+	python main.py
 
 kill_proccess:
-	@sudo lsof -ti :8000 | xargs -r sudo kill -9
+	sudo lsof -ti :8000 | xargs -r sudo kill -9
 	
 up:  
 	docker-compose up -d ${DB}
