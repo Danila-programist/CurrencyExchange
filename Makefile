@@ -15,7 +15,7 @@ env_file:
 	fi
 
 run:
-	python main.py
+	python3 main.py
 
 kill_proccess:
 	sudo lsof -ti :8000 | xargs -r sudo kill -9
