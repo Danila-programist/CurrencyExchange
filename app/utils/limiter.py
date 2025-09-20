@@ -9,11 +9,7 @@ def LimitChecker(limits: Dict[str, int]):
     async def dependency(user_role: str = Depends(get_role_from_token)):
         if not user_role:
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Неавторизован")
-
         if user_role not in limits:
             raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Лимитер не найден")
-
-        times_per_minute = limits[user_role]
-        return RateLimiter(times=times_per_minute, minutes=1)
-
+        return RateLimiter(times=limits[user_role], minutes=1)
     return dependency
