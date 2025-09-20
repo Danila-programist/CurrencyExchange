@@ -1,23 +1,25 @@
-from functools import wraps
-from typing import List, Callable, Optional
+from fastapi import Depends, HTTPException, status
+from typing import List
 
-from fastapi import HTTPException, status
+from app.core.security import get_role_from_token 
 
-class PermissionChecker:
-    def __init__(self, roles = List[str]):
-        self.roles = roles
+def PermissionChecker(allowed_roles: List[str]):
+    async def checker(user_role: str = Depends(get_role_from_token)):
+        if not user_role:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Неавторизован"
+            )
 
-    def __call__(self, func: Callable):
-        @wraps(func)
-        async def wrapper(*args, **kwargs):
-            user_role: Optional[str] = kwargs.get('user_role')
+        if user_role == "admin":
+            return user_role
 
-            if 'admin' in user_role:
-                return await func(*args, **kwargs)
+        if user_role not in allowed_roles:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Недостаточно прав"
+            )
 
-            if not user_role in self.roles:
-                raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='Permission denied')
+        return user_role
 
-            return await func(*args, **kwargs)
-
-        return wrapper
+    return checker
