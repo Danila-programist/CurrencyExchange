@@ -21,6 +21,7 @@ redis = "^6.4.0"
 fastapi-limiter = "^0.1.6"
 black = "^25.9.0"
 pylint = "^3.3.8"
+pytest = "^8.4.2"
 
 
 [build-system]
