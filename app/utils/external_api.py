@@ -5,6 +5,7 @@ from app.core import settings
 
 async def get_api_all_currencies():
     from app.utils import logger
+
     """
     Получить список всех доступных валют с их названиями на английском языке 
     и дополнительной информацией.
@@ -32,18 +33,22 @@ async def get_api_all_currencies():
     }
     """
     async with aiohttp.ClientSession() as session:
-        logger.info('Подключение aiohttp сессии')
-        async with session.get(f"{settings.BASE_URL}/currencies", params={"apikey": settings.CURRENCY_API_KEY}) as response:
-            logger.info('Получение get-запроса к внешнему API')
+        logger.info("Подключение aiohttp сессии")
+        async with session.get(
+            f"{settings.BASE_URL}/currencies",
+            params={"apikey": settings.CURRENCY_API_KEY},
+        ) as response:
+            logger.info("Получение get-запроса к внешнему API")
             response.raise_for_status()
             data = await response.json()
-            return data['data']
-        logger.warning('Не получилось подключиться к внешнему API')
-    logger.warning('Не получили подключение к сессии')
-        
+            return data["data"]
+        logger.warning("Не получилось подключиться к внешнему API")
+    logger.warning("Не получили подключение к сессии")
+
 
 async def get_api_latest(from_currency: str):
     from app.utils import logger
+
     """
     Получить список всех доступных конвертирующих валют от базовой с их
     значением кодов и относительной стоимостью от базовой, а также время последненего изменения.
@@ -78,12 +83,14 @@ async def get_api_latest(from_currency: str):
 }
     """
     async with aiohttp.ClientSession() as session:
-        logger.info('Подключение aiohttp сессии')
+        logger.info("Подключение aiohttp сессии")
         params = {"apikey": settings.CURRENCY_API_KEY, "base": from_currency}
-        logger.info('Подключение параметров для aiohttp')
-        async with session.get(f"{settings.BASE_URL}/latest", params=params) as response:
-            logger.info('Получение get-запроса к внешнему API')
+        logger.info("Подключение параметров для aiohttp")
+        async with session.get(
+            f"{settings.BASE_URL}/latest", params=params
+        ) as response:
+            logger.info("Получение get-запроса к внешнему API")
             response.raise_for_status()
             return await response.json()
-        logger.warning('Не получилось подключиться к внешнему API')
-    logger.warning('Не получили подключение к сессии')
+        logger.warning("Не получилось подключиться к внешнему API")
+    logger.warning("Не получили подключение к сессии")

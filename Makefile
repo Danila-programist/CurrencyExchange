@@ -41,5 +41,8 @@ revision:
 migration:
 	alembic upgrade head
 
+format:
+	black .
 
-
+lint:
+	pylint app app 

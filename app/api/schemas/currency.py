@@ -12,6 +12,7 @@ class Currency(BaseModel):
     type: str
     countries: list[str]
 
+
 class CurrencyConversion(BaseModel):
     from_currency: str
     to_currency: str

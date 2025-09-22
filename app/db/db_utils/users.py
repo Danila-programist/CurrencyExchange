@@ -9,29 +9,35 @@ from app.api.schemas import UserDatabase
 
 async def get_user(db: AsyncSession, username: str) -> Optional[UserDatabase]:
     from app.utils import logger
-    logger.info('Получение пользователя из таблицы')
+
+    logger.info("Получение пользователя из таблицы")
     stmt = select(Users).where(Users.username == username)
     result = await db.execute(stmt)
     return result.scalar_one_or_none()
 
+
 async def get_role(db: AsyncSession, username: str) -> Optional[str]:
     from app.utils import logger
-    logger.info('Получение роли пользователя из таблицы')
+
+    logger.info("Получение роли пользователя из таблицы")
     stmt = select(Users.role).where(Users.username == username)
     result = await db.execute(stmt)
     role: Optional[str] = result.scalar_one_or_none()
     return role
 
-async def add_new_user(db: AsyncSession, username: str, password: str, role: str = "user") -> None:
+
+async def add_new_user(
+    db: AsyncSession, username: str, password: str, role: str = "user"
+) -> None:
     from app.utils import logger
-    logger.info('Добавление нового пользователя в таблицу')
+
+    logger.info("Добавление нового пользователя в таблицу")
     from app.utils import hash_password
+
     new_user: Users = Users(
-        username=username,
-        hashed_password=hash_password(password),  
-        role=role
+        username=username, hashed_password=hash_password(password), role=role
     )
 
     db.add(new_user)
     await db.commit()
-    await db.refresh(new_user)  
+    await db.refresh(new_user)

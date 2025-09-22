@@ -3,6 +3,7 @@ import sys
 import os
 from logging.handlers import RotatingFileHandler
 
+
 def init_logger():
     logger = logging.getLogger("currency_exchange")
     logger.setLevel(logging.INFO)
@@ -16,14 +17,15 @@ def init_logger():
     logger.addHandler(console_handler)
 
     log_dir = "logs"
-    os.makedirs(log_dir, exist_ok=True) 
+    os.makedirs(log_dir, exist_ok=True)
 
     file_handler = RotatingFileHandler(
-        "logs/app.log", maxBytes=5*1024*1024, backupCount=3 
+        "logs/app.log", maxBytes=5 * 1024 * 1024, backupCount=3
     )
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)
 
     return logger
+
 
 logger = init_logger()
