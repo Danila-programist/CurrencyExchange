@@ -4,7 +4,7 @@ from sqlalchemy import String
 from .base import Base
 
 
-class Users(Base): # pylint: disable=too-few-public-methods
+class Users(Base):  # pylint: disable=too-few-public-methods
     __tablename__ = "users"
 
     id: Mapped[int] = mapped_column(primary_key=True)
