@@ -1,9 +1,10 @@
 import aiohttp
 
 from app.core import settings
-from app.utils.logger import logger
+
 
 async def get_api_all_currencies():
+    from app.utils import logger
     """
     Получить список всех доступных валют с их названиями на английском языке 
     и дополнительной информацией.
@@ -42,6 +43,7 @@ async def get_api_all_currencies():
         
 
 async def get_api_latest(from_currency: str):
+    from app.utils import logger
     """
     Получить список всех доступных конвертирующих валют от базовой с их
     значением кодов и относительной стоимостью от базовой, а также время последненего изменения.

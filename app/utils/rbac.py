@@ -3,9 +3,10 @@ from typing import List
 from fastapi import Depends, HTTPException, status
 
 from app.core.security import get_role_from_token 
-from app.utils.logger import logger
+
 
 def PermissionChecker(allowed_roles: List[str]):
+    from app.utils import logger
     async def checker(user_role: str = Depends(get_role_from_token)):
         logger.info('Обращение к PermissionChecker')
         if not user_role:

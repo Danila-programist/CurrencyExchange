@@ -9,9 +9,10 @@ from app.core import settings
 from app.api.schemas import UserDatabase
 from app.db.db_utils import get_user, get_role
 from app.db import get_db
-from app.utils.logger import logger
+
 
 def create_token(data: Optional[Dict[str, str]]) -> str:
+    from app.utils import logger
     logger.info('Создание нового токена')
     payload: Dict = dict()
     payload.update(data)
@@ -19,6 +20,7 @@ def create_token(data: Optional[Dict[str, str]]) -> str:
     return jwt.encode(payload=payload, key=settings.SECRET, algorithm=settings.ALGORYTHM)
 
 async def get_role_from_token(request: Request, db: AsyncSession = Depends(get_db)) -> str:
+    from app.utils import logger
     logger.info('Получение роли из токена')
     token = request.cookies.get('currency_token')
 

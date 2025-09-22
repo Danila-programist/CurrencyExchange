@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
 from app.core import settings
-from app.utils.logger import logger
+
 
 engine = create_async_engine(settings.ASYNC_DATABASE_DSN)
 
@@ -12,6 +12,7 @@ async_session = async_sessionmaker(
 )
 
 async def get_db():
+    from app.utils import logger
     async with async_session() as session:
         logger.info('Получение новой транзакции к базе данных')
         try:

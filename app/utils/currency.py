@@ -3,7 +3,7 @@ from typing import Dict, List, Optional
 from fastapi import HTTPException, status
 
 from app.api.schemas import CurrencyConversion
-from app.utils.logger import logger
+
 
 def convert_rates(
     from_currency: str,
@@ -11,6 +11,7 @@ def convert_rates(
     amount: float = 1,
     to_currency: Optional[str] = None
 ) -> List[CurrencyConversion]:
+    from app.utils import logger
     """
     Конвертирует сумму `amount` из `from_currency` в одну или все валюты из `rates`.
     Если `to_currency` указан — возвращает только выбранную валюту.

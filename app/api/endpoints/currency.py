@@ -3,7 +3,7 @@ from typing import Dict, Optional, List
 from fastapi import APIRouter, HTTPException, status, Query, Depends
 
 from app.utils import get_api_all_currencies, get_api_latest, convert_rates, PermissionChecker, LimitChecker
-from app.utils.logger import logger
+from app.utils import logger
 from app.api.schemas import Currency, CurrencyConversion
 
 

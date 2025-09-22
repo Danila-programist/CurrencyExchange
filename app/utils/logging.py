@@ -5,7 +5,7 @@ from logging.handlers import RotatingFileHandler
 
 def init_logger():
     logger = logging.getLogger("currency_exchange")
-
+    logger.setLevel(logging.INFO)
 
     formatter = logging.Formatter(
         "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
