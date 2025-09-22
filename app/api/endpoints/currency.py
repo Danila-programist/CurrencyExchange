@@ -6,8 +6,8 @@ from app.utils import (
     get_api_all_currencies,
     get_api_latest,
     convert_rates,
-    PermissionChecker,
-    LimitChecker,
+    permission_checker,
+    limit_checker,
 )
 from app.utils import logger
 from app.api.schemas import Currency, CurrencyConversion
@@ -23,8 +23,8 @@ role_limits = {"admin": 10, "user": 5, "guest": 1}
     response_model=Dict[str, Currency],
     summary="Получить список всех валют с дополнительной информацией",
     dependencies=[
-        Depends(PermissionChecker(["guest", "user", "admin"])),
-        Depends(LimitChecker(role_limits)),
+        Depends(permission_checker(["guest", "user", "admin"])),
+        Depends(limit_checker(role_limits)),
     ],
 )
 async def all_currencies():
@@ -37,8 +37,8 @@ async def all_currencies():
     response_model=List[CurrencyConversion],
     summary="Конвертация валют",
     dependencies=[
-        Depends(PermissionChecker(["user", "admin"])),
-        Depends(LimitChecker(role_limits)),
+        Depends(permission_checker(["user", "admin"])),
+        Depends(limit_checker(role_limits)),
     ],
 )
 async def convert_currency(

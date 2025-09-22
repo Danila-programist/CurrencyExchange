@@ -23,12 +23,11 @@ async def register(user: UserRequest, db: AsyncSession = Depends(get_db)):
     if user_db is None:
         await add_new_user(db, user.username, user.password)
         return {"Сообщение": "Пользователь успешно добавлен"}
-    else:
-        logger.info("Юзер существует, поэтому не добавляется в базу данных")
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Неправильный пароль или никнейм",
-        )
+    logger.info("Юзер существует, поэтому не добавляется в базу данных")
+    raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND,
+        detail="Неправильный пароль или никнейм",
+    )
 
 
 @router.post("/login", summary="Авторизация пользователя")
@@ -43,9 +42,9 @@ async def login(
         token = create_token(data={"sub": user.username})
         response.set_cookie(key="currency_token", value=token, httponly=True)
         return {"Сообщение": "Пользователь успешно авторизирован"}
-    else:
-        logger.info("Юзер не существует, поэтому не проходит авторизация")
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Неправильный пароль или никнейм",
-        )
+
+    logger.info("Юзер не существует, поэтому не проходит авторизация")
+    raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND,
+        detail="Неправильный пароль или никнейм",
+    )

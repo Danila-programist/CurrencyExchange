@@ -11,12 +11,12 @@ def convert_rates(
     amount: float = 1,
     to_currency: Optional[str] = None,
 ) -> List[CurrencyConversion]:
-    from app.utils import logger
-
     """
     Конвертирует сумму `amount` из `from_currency` в одну или все валюты из `rates`.
     Если `to_currency` указан — возвращает только выбранную валюту.
     """
+    from app.utils import logger
+
     results = []
     logger.info("Конвертация rates")
     if to_currency:

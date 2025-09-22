@@ -15,7 +15,7 @@ def create_token(data: Optional[Dict[str, str]]) -> str:
     from app.utils import logger
 
     logger.info("Создание нового токена")
-    payload: Dict = dict()
+    payload: Dict = {}
     payload.update(data)
     payload["exp"] = datetime.datetime.now() + datetime.timedelta(
         minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
@@ -51,13 +51,13 @@ async def get_role_from_token(
             )
 
         return await get_role(db, user.username)
-    except jwt.ExpiredSignatureError:
+    except jwt.ExpiredSignatureError as exc:
         logger.warning("Неверная сигнатура токена")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Неверный токен"
-        )
-    except jwt.InvalidSignatureError:
+        ) from exc
+    except jwt.InvalidSignatureError as exs:
         logger.warning("Просроченный токен")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Неверный токен"
-        )
+        ) from exs

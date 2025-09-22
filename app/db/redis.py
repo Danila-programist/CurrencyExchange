@@ -1,13 +1,14 @@
-from fastapi import FastAPI
 from contextlib import asynccontextmanager
+
 import redis.asyncio as redis
+from fastapi import FastAPI
 from fastapi_limiter import FastAPILimiter
 
 from app.core import settings
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(_app: FastAPI):
     from app.utils import logger
 
     logger.info("Подключение Redis")

@@ -18,7 +18,7 @@ class Settings(BaseSettings):
     DB: str
 
     @property
-    def ASYNC_DATABASE_DSN(self) -> PostgresDsn:
+    def ASYNC_DATABASE_DSN(self) -> PostgresDsn:  # pylint: disable=C0103
         return f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
 
     # Hashing

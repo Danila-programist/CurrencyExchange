@@ -6,7 +6,7 @@ from fastapi_limiter.depends import RateLimiter
 from app.core.security import get_role_from_token
 
 
-def LimitChecker(limits: Dict[str, int]):
+def limit_checker(limits: Dict[str, int]):
     async def dependency(
         request: Request,
         response: Response,
