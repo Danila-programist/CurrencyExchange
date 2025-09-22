@@ -45,4 +45,4 @@ format:
 	black .
 
 lint:
-	pylint app  
+	pylint app main.py

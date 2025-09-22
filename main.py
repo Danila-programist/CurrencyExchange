@@ -10,6 +10,7 @@ app = FastAPI(title="Currency Exchange API", lifespan=lifespan)
 app.include_router(api_router)
 
 if __name__ == "__main__":
+    c = 1
     logger.info("Запуск ASGI uvicorn и приложения")
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
     logger.info("Выключение приложения")
