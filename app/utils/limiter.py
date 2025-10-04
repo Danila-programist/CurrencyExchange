@@ -3,6 +3,7 @@ from typing import Dict
 from fastapi import HTTPException, status, Request, Response
 from fastapi_limiter.depends import RateLimiter
 
+
 def limit_checker(limits: Dict[str, int]):
     async def dependency(
         request: Request,
@@ -10,6 +11,7 @@ def limit_checker(limits: Dict[str, int]):
     ):
         from app.utils import logger
         from app.core.security import get_role_from_token  # локальный импорт
+
         user_role: str = await get_role_from_token(request)
         logger.info("Проверка LimitChecker")
         if not user_role:
