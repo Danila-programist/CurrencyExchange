@@ -15,11 +15,11 @@ class TestCurrencySchema:
             "code": "USD",
             "name_plural": "US dollars",
             "type": "fiat",
-            "countries": ["US", "EC", "SV", "MH", "FM", "PW", "TL", "ZW"]
+            "countries": ["US", "EC", "SV", "MH", "FM", "PW", "TL", "ZW"],
         }
-        
+
         currency = Currency(**currency_data)
-        
+
         assert currency.symbol == "$"
         assert currency.name == "US Dollar"
         assert currency.code == "USD"
@@ -35,9 +35,9 @@ class TestCurrencySchema:
             "code": "USD",
             "name_plural": "US dollars",
             "type": "fiat",
-            "countries": ["US"]
+            "countries": ["US"],
         }
-        
+
         with pytest.raises(ValidationError):
             Currency(**currency_data)
 
@@ -51,9 +51,9 @@ class TestCurrencySchema:
             "code": "USD",
             "name_plural": "US dollars",
             "type": "fiat",
-            "countries": ["US"]
+            "countries": ["US"],
         }
-        
+
         with pytest.raises(ValidationError):
             Currency(**currency_data)
 
@@ -67,9 +67,9 @@ class TestCurrencySchema:
             "code": "BTC",
             "name_plural": "Bitcoins",
             "type": "crypto",
-            "countries": []
+            "countries": [],
         }
-        
+
         currency = Currency(**currency_data)
         assert currency.countries == []
 
@@ -81,11 +81,11 @@ class TestCurrencyConversionSchema:
             "to_currency": "EUR",
             "rate": 0.85,
             "amount": 100.0,
-            "converted_amount": 85.0
+            "converted_amount": 85.0,
         }
-        
+
         conversion = CurrencyConversion(**conversion_data)
-        
+
         assert conversion.from_currency == "USD"
         assert conversion.to_currency == "EUR"
         assert conversion.rate == 0.85
@@ -97,10 +97,10 @@ class TestCurrencyConversionSchema:
             "from_currency": "USD",
             "to_currency": "EUR",
             "rate": 0.85,
-            "amount": 100.0
+            "amount": 100.0,
             # Отсутствует converted_amount
         }
-        
+
         with pytest.raises(ValidationError):
             CurrencyConversion(**conversion_data)
 
@@ -110,9 +110,9 @@ class TestCurrencyConversionSchema:
             "to_currency": "EUR",
             "rate": -0.85,  # Отрицательный курс
             "amount": -100.0,  # Отрицательная сумма
-            "converted_amount": 85.0
+            "converted_amount": 85.0,
         }
-        
+
         conversion = CurrencyConversion(**conversion_data)
         assert conversion.rate == -0.85
         assert conversion.amount == -100.0
@@ -123,9 +123,9 @@ class TestCurrencyConversionSchema:
             "to_currency": "EUR",
             "rate": 0.0,
             "amount": 0.0,
-            "converted_amount": 0.0
+            "converted_amount": 0.0,
         }
-        
+
         conversion = CurrencyConversion(**conversion_data)
         assert conversion.rate == 0.0
         assert conversion.amount == 0.0
@@ -137,9 +137,9 @@ class TestCurrencyConversionSchema:
             "to_currency": "JPY",
             "rate": 110.0,
             "amount": 1000000.0,
-            "converted_amount": 110000000.0
+            "converted_amount": 110000000.0,
         }
-        
+
         conversion = CurrencyConversion(**conversion_data)
         assert conversion.amount == 1000000.0
         assert conversion.converted_amount == 110000000.0
@@ -150,11 +150,11 @@ class TestCurrencyConversionSchema:
             to_currency="EUR",
             rate=0.85,
             amount=100.0,
-            converted_amount=85.0
+            converted_amount=85.0,
         )
-        
+
         data = conversion.model_dump()
-        
+
         assert data["from_currency"] == "USD"
         assert data["to_currency"] == "EUR"
         assert data["rate"] == 0.85

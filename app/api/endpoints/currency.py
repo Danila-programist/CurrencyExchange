@@ -8,7 +8,7 @@ from app.utils import (
     convert_rates,
     permission_checker,
     limit_checker,
-    logger
+    logger,
 )
 from app.api.schemas import Currency, CurrencyConversion
 
