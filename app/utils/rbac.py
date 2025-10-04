@@ -2,10 +2,11 @@ from typing import List
 
 from fastapi import Depends, HTTPException, status
 
-from app.core.security import get_role_from_token
+
 
 
 def permission_checker(allowed_roles: List[str]):
+    from app.core.security import get_role_from_token
     from app.utils import logger
 
     async def checker(user_role: str = Depends(get_role_from_token)):

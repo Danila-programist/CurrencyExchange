@@ -1,13 +1,11 @@
 import pytest
 from pydantic import ValidationError
-from app.api.schemas.currency import Currency, CurrencyConversion
+
+from app.api.schemas import Currency, CurrencyConversion
 
 
 class TestCurrencySchema:
-    """Тесты для схемы Currency"""
-
     def test_currency_valid_data(self):
-        """Тест создания валидной валюты"""
         currency_data = {
             "symbol": "$",
             "name": "US Dollar",
@@ -28,7 +26,6 @@ class TestCurrencySchema:
         assert len(currency.countries) == 8
 
     def test_currency_missing_required_field(self):
-        """Тест ошибки при отсутствии обязательного поля"""
         currency_data = {
             "symbol": "$",
             "name": "US Dollar",
@@ -45,7 +42,6 @@ class TestCurrencySchema:
             Currency(**currency_data)
 
     def test_currency_invalid_type(self):
-        """Тест ошибки при неверном типе данных"""
         currency_data = {
             "symbol": "$",
             "name": "US Dollar",
@@ -62,7 +58,6 @@ class TestCurrencySchema:
             Currency(**currency_data)
 
     def test_currency_empty_countries(self):
-        """Тест валюты с пустым списком стран"""
         currency_data = {
             "symbol": "₿",
             "name": "Bitcoin",
@@ -80,10 +75,7 @@ class TestCurrencySchema:
 
 
 class TestCurrencyConversionSchema:
-    """Тесты для схемы CurrencyConversion"""
-
     def test_currency_conversion_valid_data(self):
-        """Тест создания валидной конвертации валют"""
         conversion_data = {
             "from_currency": "USD",
             "to_currency": "EUR",
@@ -101,7 +93,6 @@ class TestCurrencyConversionSchema:
         assert conversion.converted_amount == 85.0
 
     def test_currency_conversion_missing_field(self):
-        """Тест ошибки при отсутствии обязательного поля"""
         conversion_data = {
             "from_currency": "USD",
             "to_currency": "EUR",
@@ -114,7 +105,6 @@ class TestCurrencyConversionSchema:
             CurrencyConversion(**conversion_data)
 
     def test_currency_conversion_negative_values(self):
-        """Тест конвертации с отрицательными значениями"""
         conversion_data = {
             "from_currency": "USD",
             "to_currency": "EUR",
@@ -128,7 +118,6 @@ class TestCurrencyConversionSchema:
         assert conversion.amount == -100.0
 
     def test_currency_conversion_zero_values(self):
-        """Тест конвертации с нулевыми значениями"""
         conversion_data = {
             "from_currency": "USD",
             "to_currency": "EUR",
@@ -143,7 +132,6 @@ class TestCurrencyConversionSchema:
         assert conversion.converted_amount == 0.0
 
     def test_currency_conversion_large_numbers(self):
-        """Тест конвертации с большими числами"""
         conversion_data = {
             "from_currency": "USD",
             "to_currency": "JPY",
@@ -157,7 +145,6 @@ class TestCurrencyConversionSchema:
         assert conversion.converted_amount == 110000000.0
 
     def test_currency_conversion_serialization(self):
-        """Тест сериализации объекта конвертации"""
         conversion = CurrencyConversion(
             from_currency="USD",
             to_currency="EUR",
@@ -166,7 +153,6 @@ class TestCurrencyConversionSchema:
             converted_amount=85.0
         )
         
-        # Тест преобразования в словарь
         data = conversion.model_dump()
         
         assert data["from_currency"] == "USD"

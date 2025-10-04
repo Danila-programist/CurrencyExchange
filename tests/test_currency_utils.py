@@ -1,7 +1,8 @@
 import pytest
 from fastapi import HTTPException, status
+
 from app.utils.currency import convert_rates
-from app.api.schemas import CurrencyConversion
+
 
 
 class TestConvertRates:

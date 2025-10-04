@@ -1,4 +1,3 @@
-import pytest
 from app.utils.hashing import hash_password, is_verify_password
 
 
