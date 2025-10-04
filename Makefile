@@ -1,4 +1,4 @@
-.PHONY: up down logs psql run kill_proccess init_env env_file
+.PHONY: up down logs psql run kill_proccess init_env env_file check
 
 include .env
 export

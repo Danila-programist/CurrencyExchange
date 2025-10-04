@@ -8,8 +8,8 @@ from app.utils import (
     convert_rates,
     permission_checker,
     limit_checker,
+    logger
 )
-from app.utils import logger
 from app.api.schemas import Currency, CurrencyConversion
 
 

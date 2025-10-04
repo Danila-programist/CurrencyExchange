@@ -1,15 +1,15 @@
 from typing import List
 
-from fastapi import Depends, HTTPException, status
-
-
+from fastapi import HTTPException, status, Request
 
 
 def permission_checker(allowed_roles: List[str]):
-    from app.core.security import get_role_from_token
-    from app.utils import logger
 
-    async def checker(user_role: str = Depends(get_role_from_token)):
+    async def checker(request : Request):
+        from app.core.security import get_role_from_token
+        from app.utils import logger
+        user_role: str = await get_role_from_token(request)
+
         logger.info("Обращение к PermissionChecker")
         if not user_role:
             logger.warning("Не найден user_role пользователя")

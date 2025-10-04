@@ -1,19 +1,16 @@
 from typing import Dict
 
-from fastapi import Depends, HTTPException, status, Request, Response
+from fastapi import HTTPException, status, Request, Response
 from fastapi_limiter.depends import RateLimiter
-
-from app.core.security import get_role_from_token
-
 
 def limit_checker(limits: Dict[str, int]):
     async def dependency(
         request: Request,
         response: Response,
-        user_role: str = Depends(get_role_from_token),
     ):
         from app.utils import logger
-
+        from app.core.security import get_role_from_token  # локальный импорт
+        user_role: str = await get_role_from_token(request)
         logger.info("Проверка LimitChecker")
         if not user_role:
             logger.warning("Нет авторизации пользователя")

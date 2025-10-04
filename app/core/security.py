@@ -6,8 +6,6 @@ from fastapi import Request, HTTPException, status, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core import settings
-from app.api.schemas import UserDatabase
-from app.db.db_utils import get_user, get_role
 from app.db import get_db
 
 
@@ -28,7 +26,9 @@ def create_token(data: Optional[Dict[str, str]]) -> str:
 async def get_role_from_token(
     request: Request, db: AsyncSession = Depends(get_db)
 ) -> str:
+    from app.db.db_utils import get_user, get_role
     from app.utils import logger
+    from app.api.schemas import UserDatabase
 
     logger.info("Получение роли из токена")
     token = request.cookies.get("currency_token")

@@ -22,6 +22,25 @@ services:
       - "6379:6379"
     volumes:
       - redis_data:/data 
+    
+  backend:
+    build: .
+    container_name: "currency_exchange_backend"
+    restart: always
+    depends_on:
+      - db
+      - redis
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    command: >
+      sh -c "alembic upgrade head &&
+             poetry run uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
+    volumes:
+      - .:/app
+
+
 
 volumes:
   postgres_data:
