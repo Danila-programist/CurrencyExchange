@@ -6,7 +6,6 @@ import os
 
 @pytest.fixture(scope="session")
 def test_env_vars():
-    """Фикстура с тестовыми переменными окружения"""
     test_env = {
         'CURRENCY_API_KEY': 'test_api_key_123',
         'BASE_URL': 'https://api.test.com',
@@ -31,7 +30,6 @@ def test_env_vars():
 
 @pytest.fixture
 def sample_currency_rates():
-    """Фикстура с примерными курсами валют"""
     return {
         "EUR": {"value": 0.85},
         "GBP": {"value": 0.73},
@@ -43,7 +41,6 @@ def sample_currency_rates():
 
 @pytest.fixture
 def sample_currency_data():
-    """Фикстура с примерными данными валюты"""
     return {
         "symbol": "$",
         "name": "US Dollar",
@@ -59,7 +56,6 @@ def sample_currency_data():
 
 @pytest.fixture
 def sample_conversion_data():
-    """Фикстура с примерными данными конвертации"""
     return {
         "from_currency": "USD",
         "to_currency": "EUR",
@@ -71,7 +67,6 @@ def sample_conversion_data():
 
 @pytest.fixture
 def mock_external_api_response():
-    """Фикстура с мок-ответом внешнего API"""
     return {
         "data": {
             "USD": {"value": 1.0},
@@ -87,7 +82,6 @@ def mock_external_api_response():
 
 @pytest.fixture
 def test_passwords():
-    """Фикстура с тестовыми паролями"""
     return {
         "simple": "password123",
         "complex": "P@ssw0rd!2024",

@@ -60,6 +60,9 @@ format:   ##@Code Format code with black
 lint: ##@Code Lint code with pylint
 	pylint app main.py
 
+check: ##@Test Check out application
+	pytest tests
+
 help: ##@Help Show this help
 	@echo -e "Usage: make [target] ...\n"
 	@perl -e '$(HELP_FUN)' $(MAKEFILE_LIST)
